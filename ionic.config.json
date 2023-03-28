@@ -1,0 +1,7 @@
+{
+  "name": "frugal-location-web",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
