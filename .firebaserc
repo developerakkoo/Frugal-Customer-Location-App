@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "consign-612af": {
+      "hosting": {
+        "app": [
+          "frugal-location"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "consign-612af"
+  }
+}

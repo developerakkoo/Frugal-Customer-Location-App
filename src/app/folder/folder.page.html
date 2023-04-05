@@ -8,14 +8,15 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">{{ folder }}</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div *ngIf="isAuto" #map id="map"  style="height: 100%;"></div>
 
-  <div id="container">
-    <strong class="capitalize">{{ folder }}</strong>
-    <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <!-- <div *ngIf="isEAuto" #mapeauto id="mapeauto"  style="height: 100%;"></div>
+
+  <div *ngIf="isCrane" #mapcrane id="mapcrane"  style="height: 100%;"></div>
+
+  <div *ngIf="isAmbulance" #mapambulance id="mapambulance"  style="height: 100%;"></div>
+
+  <div *ngIf="isSchoolvan" #mapschoolvan id="mapschoolvan"  style="height: 100%;"></div>
+
+  <div *ngIf="isbulldozer" #mapbulldozer id="mapbulldozer"  style="height: 100%;"></div> -->
 </ion-content>

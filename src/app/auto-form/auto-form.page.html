@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Form Auto</ion-title>
+    <ion-button fill="clear" slot="end" (click)="dismiss()">
+      <ion-icon slot="icon-only" name="close"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="autoForm" (ngSubmit)="onSubmit()">
+    <ion-item>
+      <ion-label position="floating">From <ion-text color="danger">*</ion-text></ion-label>
+      <ion-input required formControlName="from" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">to <ion-text color="danger">*</ion-text></ion-label>
+      <ion-input required formControlName="to" type="text"></ion-input>
+    </ion-item>
+    <ion-button block color="primary" type="submit" [disabled]="autoForm.invalid">
+      Submit
+    </ion-button>
+  </form>
+</ion-content>
