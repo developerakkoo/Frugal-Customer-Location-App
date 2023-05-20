@@ -4,6 +4,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Geolocation } from '@capacitor/geolocation';
 import { ModalController } from '@ionic/angular';
+import { environment } from 'src/environments/environment';
 
 declare var google: any;
 
@@ -30,6 +31,7 @@ export class AmbulancePage implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
     private modalController: ModalController,
     private http: HttpClient) {
+    this.getAllAutos();
       
   }
 
@@ -39,15 +41,23 @@ export class AmbulancePage implements OnInit {
   }
 
   getAllAutos() {
-    this.http.get("https://consign-612af-default-rtdb.firebaseio.com/Ambulance.json").subscribe((autos: any) => {
-      console.log(autos);
-      var arr_obj = Object.keys(autos).map(key => ({ key: autos[key] }));
+    this.http.get(environment.URL+"/App/api/v1/get/vehicle")
+    .subscribe({
+      next:(autos:any) =>{
+        console.log(autos);
 
-      console.log(arr_obj);
-      
-      this.addAutoMarkers(arr_obj);
+      },
+      error:(error) =>{
+        console.log(error);
+        
+      }
+      // var arr_obj = Object.keys(autos).map(key => ({ key: autos[key] }));
+      // console.log(arr_obj);   
+      // this.addAutoMarkers(arr_obj);
     })
   }
+
+
   async getUserPosition() {
 
     console.log("Add map get user pos");
@@ -72,24 +82,7 @@ export class AmbulancePage implements OnInit {
       mapTypeId: google.maps.MapTypeId.ROADMAP,
     }
     this.map = new google.maps.Map(this.mapView.nativeElement, mapOptions);
-    
-  //   if(type == "Auto"){
-  //  }
-  //  if(type == "E-Auto"){
-  //   this.map = new google.maps.Map(this.eautoView.nativeElement, mapOptions);
-  //  }
-  //  if(type == "Ambulance"){
-  //   this.map = new google.maps.Map(this.ambulanceView.nativeElement, mapOptions);
-  //  }
-  //  if(type == "Crane"){
-  //   this.map = new google.maps.Map(this.craneView.nativeElement, mapOptions);
-  //  }
-  //  if(type == "Bulldozer"){
-  //   this.map = new google.maps.Map(this.bulldozerView.nativeElement, mapOptions);
-  //  } if(type == "SchoolVan"){
-  //   this.map = new google.maps.Map(this.schoolvanView.nativeElement, mapOptions);
-  //  }
-
+  
     this.addMarker();
 
   }

@@ -3,6 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  URL: "https://api.consign.co.in",
   firebase: {
     projectId: 'consign-612af',
     appId: '1:524688990077:web:790f79834f8e74d16cb614',

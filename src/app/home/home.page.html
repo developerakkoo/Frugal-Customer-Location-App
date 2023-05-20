@@ -2,9 +2,12 @@
   <ion-toolbar>
     <ion-title>Click on the desired vehicle to locate on the map and book nearest one</ion-title>
   </ion-toolbar>
+  <ion-searchbar placeholder="Select City/Current Location" inputmode="decimal" type="decimal" (ionChange)="onSearchChange($event)" [debounce]="250" showCancelButton="always"></ion-searchbar>
 </ion-header>
 
 <ion-content>
+  <div  #map id="map"  style="height: 400px; width: auto;"></div>
+
 <ion-grid>
   <ion-row>
     <ion-col sizeLg="4" sizeSm="12" sizeMd="6" sizeXs="12">
