@@ -4,10 +4,18 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>{{ folder | uppercase}}</ion-title>
+    <!-- <ion-button (click)="removeAllRedLines()" expand="block" fill="clear" shape="round">
+      Clear red Lines
+    </ion-button> -->
+
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-text color="primary">
+    <h1>Distance:- {{distance}}</h1>
+    <h1>Duration:- {{duration}}</h1>
+  </ion-text>
   <div *ngIf="isAuto" #map id="map"  style="height: 100%;"></div>
 
   <!-- <div *ngIf="isEAuto" #mapeauto id="mapeauto"  style="height: 100%;"></div>
