@@ -1,6 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Click on the desired vehicle to locate on the map and book nearest one</ion-title>
+    <ion-button slot="end" (click)="openUserProfile()">
+      <ion-icon slot="icon-only" name="person"></ion-icon>
+    </ion-button>
   </ion-toolbar>
   <ion-searchbar placeholder="Select City/Current Location" inputmode="decimal" type="decimal" (ionChange)="onSearchChange($event)" [debounce]="250" showCancelButton="always"></ion-searchbar>
 </ion-header>
@@ -14,7 +17,7 @@
       <ion-card>
         <ion-card-header>
           <ion-card-subtitle>AMBULANCE</ion-card-subtitle>
-         <ion-img src="assets/ambulance.jpg"></ion-img>
+         <ion-img style="height: 150px;" src="assets/icon/ambulance.png"></ion-img>
         </ion-card-header>
         <ion-card-content>
           <ion-button (dblclick)="openAmbulance()" expand="block" fill="clear" shape="round">
@@ -26,7 +29,7 @@
     <ion-col sizeLg="4" sizeSm="12" sizeMd="6" sizeXs="12"><ion-card>
         <ion-card-header>
           <ion-card-subtitle>FIRE BRIGRADE</ion-card-subtitle>
-          <ion-img src="assets/fire_brigade.jpg"></ion-img>
+          <ion-img style="height:150px;" src="assets/icon/fire-truck.png"></ion-img>
 
         </ion-card-header>
         <ion-card-content>
@@ -39,7 +42,7 @@
       <ion-card>
         <ion-card-header>
           <ion-card-subtitle>WATER TANKER</ion-card-subtitle>
-          <ion-img style="height: 192px;" src="assets/WATER_TANKER.jpg"></ion-img>
+          <ion-img style="height: 150px;" src="assets/icon/oil-tanker.png"></ion-img>
 
         </ion-card-header>
         <ion-card-content>
@@ -57,7 +60,7 @@
       <ion-card>
         <ion-card-header>
           <ion-card-subtitle>RICKSHAW</ion-card-subtitle>
-          <ion-img style="height: 192px;" src="assets/3W_100.jpg"></ion-img>
+          <ion-img style="height: 150px;" src="assets/icon/rickshaw.png"></ion-img>
 
         </ion-card-header>
         <ion-card-content>
@@ -70,7 +73,7 @@
     <ion-col sizeLg="4" sizeSm="12" sizeMd="6" sizeXs="12"><ion-card>
         <ion-card-header>
           <ion-card-subtitle>CARGO</ion-card-subtitle>
-          <ion-img style="height: 192px;" src="assets/cargo_3W_4W.jpg"></ion-img>
+          <ion-img style="height: 150px;" src="assets/icon/cargo.png"></ion-img>
 
         </ion-card-header>
         <ion-card-content>
@@ -83,7 +86,7 @@
       <ion-card>
         <ion-card-header>
           <ion-card-subtitle>E-RICKSHAW</ion-card-subtitle>
-          <ion-img style="height: 192px;" src="assets/erickshaw3.jpg"></ion-img>
+          <ion-img style="height: 150px;" src="assets/icon/trickshaw.png"></ion-img>
 
         </ion-card-header>
         <ion-card-content>
@@ -101,7 +104,7 @@
       <ion-card>
         <ion-card-header>
           <ion-card-subtitle>TRUCK</ion-card-subtitle>
-          <ion-img style="height: 192px;" src="assets/4W_10T.jpg"></ion-img>
+          <ion-img style="height: 150px;" src="assets/icon/truck.png"></ion-img>
 
         </ion-card-header>
         <ion-card-content>
@@ -114,7 +117,7 @@
     <ion-col sizeLg="4" sizeSm="12" sizeMd="6" sizeXs="12"><ion-card>
         <ion-card-header>
           <ion-card-subtitle>CRANE</ion-card-subtitle>
-          <ion-img style="height: 192px;" src="assets/CRANE2.jpg"></ion-img>
+          <ion-img style="height: 150px;" src="assets/icon/crane.png"></ion-img>
 
         </ion-card-header>
         <ion-card-content>
@@ -127,7 +130,7 @@
       <ion-card>
         <ion-card-header>
           <ion-card-subtitle>BULLDOZER</ion-card-subtitle>
-          <ion-img style="height: 192px;" src="assets/BULLDOZER1.png"></ion-img>
+          <ion-img style="height: 150px;" src="assets/icon/bulldozer.png"></ion-img>
 
         </ion-card-header>
         <ion-card-content>
@@ -145,7 +148,7 @@
       <ion-card>
         <ion-card-header>
           <ion-card-subtitle>SCHOOL VAN</ion-card-subtitle>
-          <ion-img style="height: 192px;" src="assets/SCHOOL_VAN.png"></ion-img>
+          <ion-img style="height: 150px;" src="assets/icon/van.png"></ion-img>
 
         </ion-card-header>
         <ion-card-content>
@@ -158,7 +161,7 @@
     <ion-col sizeLg="4" sizeSm="12" sizeMd="6" sizeXs="12"><ion-card>
         <ion-card-header>
           <ion-card-subtitle>TRACTOR</ion-card-subtitle>
-          <ion-img style="height: 192px;" src="assets/tractor.webp"></ion-img>
+          <ion-img style="height: 150px;" src="assets/icon/tractor.png"></ion-img>
 
         </ion-card-header>
         <ion-card-content>
@@ -171,7 +174,7 @@
       <ion-card>
         <ion-card-header>
           <ion-card-subtitle>ROAD ROLLER</ion-card-subtitle>
-          <ion-img style="height: 192px;" src="assets/roadroller.webp"></ion-img>
+          <ion-img style="height: 150px;" src="assets/icon/roller.png"></ion-img>
 
         </ion-card-header>
         <ion-card-content>

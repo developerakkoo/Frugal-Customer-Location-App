@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'auth',
     pathMatch: 'full'
   },
   {
@@ -36,8 +36,28 @@ const routes: Routes = [
     loadChildren: () => import('./schoolvan/schoolvan.module').then( m => m.SchoolvanPageModule)
   },
   {
-    path: 'home',
+    path: 'home/:id',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+  },
+  {
+    path: 'set-pin/:id',
+    loadChildren: () => import('./set-pin/set-pin.module').then( m => m.SetPinPageModule)
+  },
+  {
+    path: 'enter-pin/:id',
+    loadChildren: () => import('./enter-pin/enter-pin.module').then( m => m.EnterPinPageModule)
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then( m => m.AuthPageModule)
+  },
+  {
+    path: 'register',
+    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+  },
+  {
+    path: 'profile/:id',
+    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
   }
 ];
 

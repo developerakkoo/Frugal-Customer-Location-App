@@ -4,7 +4,9 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Geolocation } from '@capacitor/geolocation';
 import { ModalController, MenuController, LoadingController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { HandlerService } from '../handler.service';
 
 declare var google: any;
 @Component({
@@ -14,8 +16,9 @@ declare var google: any;
 })
 export class FolderPage implements OnInit {
   public folder!: string;
+  userId:any;
 
-  flightPath:any;
+  flightPath: any;
   marker: any;
   Automarker: any;
   @ViewChild('map') mapView!: ElementRef;
@@ -27,8 +30,8 @@ export class FolderPage implements OnInit {
   lat: any;
   lng: any;
 
-  duration:any;
-  distance:any;
+  duration: any;
+  distance: any;
   origin: any;
   destination: any;
 
@@ -39,19 +42,23 @@ export class FolderPage implements OnInit {
   isSchoolvan: boolean = false;
   isCrane: boolean = false;
   isbulldozer: boolean = false;
+
+  postTransactionSub!: Subscription;
+
   constructor(private activatedRoute: ActivatedRoute,
     private menuCtrl: MenuController,
     private modalController: ModalController,
     private loadingController: LoadingController,
+    private handler: HandlerService,
     private http: HttpClient) {
     this.menuCtrl.enable(false);
 
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.folder = this.activatedRoute.snapshot.paramMap.get('id') as string;
     console.log(this.folder);
-
+    this.userId = await this.handler.get("userId");
     this.getUserPosition();
 
     // setInterval(() =>{
@@ -59,6 +66,11 @@ export class FolderPage implements OnInit {
     // }, 9000)
 
 
+  }
+
+  ionViewDidLeave(){
+    console.log("Folder Page Left");
+    this.postTransactionSub.unsubscribe();
   }
 
 
@@ -70,11 +82,11 @@ export class FolderPage implements OnInit {
   }
 
   getAllAutos() {
-    this.http.get(environment.URL + "/App/api/v1/get/vehicle")
+    this.http.get(environment.URL + "/App/api/v1/getVehiclesByCategory/AMBULANCE")
       .subscribe({
         next: (autos: any) => {
           console.log(autos);
-          this.addAutoMarkers(autos['vehicle']);
+          this.addAutoMarkers(autos['availableVehicles']);
 
         },
         error: (error) => {
@@ -119,9 +131,9 @@ export class FolderPage implements OnInit {
     this.origin = new google.maps.LatLng(lat, lon);
     let mapOptions = {
       center: latlng,
-      mapId:"9f9c02724597ae7e",
+      mapId: "9f9c02724597ae7e",
       zoom: 11,
-      
+
     }
     this.map = new google.maps.Map(this.mapView.nativeElement, mapOptions);
 
@@ -161,41 +173,33 @@ export class FolderPage implements OnInit {
 
   }
 
-  // changeMarkerPosition(marker: any) {
-  //   var latlng = new google.maps.LatLng(40.748774, -73.985763);
-  //   marker.setPosition(latlng);
-  // }
 
 
-  calculateDistance() {
-    console.log('calcuate distance');
 
-  }
   addAutoMarkers(autos: any[]) {
     console.log(autos);
     for (let index = 0; index < autos.length; index++) {
       const element = autos[index];
       console.log(`Count location ${autos.length}`);
 
-      console.log(element['coordinates']);
+      console.log(element);
 
-      if (element['coordinates'].length != 0) {
+      if (element['coordinates'].length == 2) {
         let contentString = '<div id="content">' +
           '<div id="siteNotice">' +
           "</div>" +
 
           '<div style="color: black;" class="firstHeading" id="bodyContent">' +
           element['Category'] +
+          
           "<br />" +
-          element['MobileNumber'] +
-          "<br />" +
-          element['Rates'] +
+          element['Rates'] +"/RS"+
 
           `<p class='calculate' id='${element['coordinates']}'><a href="tel:+91${element['VehiclesOwnerId']['MobileNumber']}">` +
           "Call</a> " +
 
-         
-         
+
+
 
           "</div>" +
           "</div>";
@@ -208,7 +212,7 @@ export class FolderPage implements OnInit {
           position: latlng,
           draggable: false,
           icon: '/assets/auto.ico',
-          title: element['MobileNumber'].toString(),
+          title: element['VehiclesOwnerId'].toString(),
           label: { color: '#FF0B0B', fontWeight: 'bold', fontSize: '10px', text: element['Category'] }
           //icon: ''
         });
@@ -226,17 +230,17 @@ export class FolderPage implements OnInit {
 
           //Handle Click event on Call button in Info Window
           document.querySelectorAll('.calculate').forEach((el) => el.addEventListener("click", () => {
-            console.log(el.id)
+            console.log(el)
             let id = el.id.toString().split(',');
             console.log(id);
             let lat = id[0];
             let lng = id[1];
             let destination = new google.maps.LatLng(lat, lng);
 
-            
+
             let polyLinejoiningPathPoints = [
               this.origin,
-             destination
+              destination
             ]
             const lineSymbol = {
               path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
@@ -256,49 +260,30 @@ export class FolderPage implements OnInit {
             });
 
 
-            
 
-            
+
+
             this.flightPath.setMap(this.map);
 
             //Distaance Matrix Code Below
-            var service = new google.maps.DistanceMatrixService();
-            service.getDistanceMatrix(
-              {
-                origins: [this.origin],
-                destinations: [destination],
-                travelMode: 'DRIVING',
-                avoidHighways: false,
-                avoidTolls: false,
-              },  (response: any, status: any) => {
-                // See Parsing the Results for
-                // the basics of a callback function.
-                console.log(response['rows'][0]['elements'][0]['distance']['text']);
-                console.log(response['rows'][0]['elements'][0]['duration']['text']);
-                console.log(status);
-                this.distance = response['rows'][0]['elements'][0]['distance']['text'];
-                this.duration = response['rows'][0]['elements'][0]['duration']['text'];
-                
-              });
+            this.CreateTransaction(destination, this.Automarker.getTitle());
 
+            google.maps.event.addListener(this.flightPath, 'click',
+              (evt: any) => {
+                console.log(evt);
 
-        google.maps.event.addListener(this.flightPath, 'click',
-        (evt: any) => {
-          console.log(evt);
-          
-          //open modal for from to and fares
-          // this.presentAutoModal(this.Automarker.getTitle());
-        })
+                //open modal for from to and fares
+                // this.presentAutoModal(this.Automarker.getTitle());
+              })
 
 
 
-              //Distance Matrix Callback with Distance and time
-           
+
 
           }));
         });
 
-       
+
         google.maps.event.addListener(this.Automarker, 'click',
           (evt: any) => {
             console.log(this.Automarker.getTitle());
@@ -315,7 +300,49 @@ export class FolderPage implements OnInit {
     }
   }
 
-  removeAllRedLines(){
+  CreateTransaction(destination:any, partnerId:any){
+
+
+    console.log(`USerId:- ${this.userId}`);
+    console.log(`Partner Id:- ${partnerId}`);
+    
+
+   
+    var service = new google.maps.DistanceMatrixService();
+            service.getDistanceMatrix(
+              {
+                origins: [this.origin],
+                destinations: [destination],
+                travelMode: 'DRIVING',
+                avoidHighways: false,
+                avoidTolls: false,
+              }, (response: any, status: any) => {
+                // See Parsing the Results for
+                // the basics of a callback function.
+                console.log(response['rows'][0]['elements'][0]['distance']['text']);
+                console.log(response['rows'][0]['elements'][0]['duration']['text']);
+                console.log(status);
+                this.distance = response['rows'][0]['elements'][0]['distance']['text'];
+                this.duration = response['rows'][0]['elements'][0]['duration']['text'];
+                this.http.post(environment.URL+'/api/post/contactHistory',{
+                  userId: this.userId,
+                  partnerId: partnerId
+                })
+                .subscribe({
+                  next:(value:any) =>{
+                    console.log(value);
+                    
+                  },
+                  error:(error) =>{
+                    console.log(error);
+                    
+                  }
+                })
+              });
+
+  }
+
+  removeAllRedLines() {
     this.flightPath.setMap(null);
   }
 

@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Geolocation } from '@capacitor/geolocation';
 import { ModalController, MenuController, ToastController } from '@ionic/angular';
@@ -10,6 +10,7 @@ declare var google: any;
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
+  userId:any;
   marker:any;
   Automarker:any;
   @ViewChild('map') mapView!: ElementRef;
@@ -22,7 +23,9 @@ export class HomePage implements OnInit {
   lng: any;
   constructor(private menuCtrl: MenuController,
               private router: Router,
+              private route:ActivatedRoute,
               private toastController: ToastController) {
+                this.userId = this.route.snapshot.paramMap.get("id");
                 this.getUserPosition();
                }
 
@@ -37,6 +40,11 @@ export class HomePage implements OnInit {
       position:'middle'
     });
     toast.present();
+  }
+
+
+  openUserProfile(){
+    this.router.navigate(['profile', this.userId]);
   }
   async getUserPosition() {
 
@@ -99,7 +107,7 @@ export class HomePage implements OnInit {
   }
 
   openAmbulance(){
-    this.router.navigate(['folder', 'ambulance'])
+    this.router.navigate(['folder', 'ambulance']);
   }
 
   openRiskshaw(){
