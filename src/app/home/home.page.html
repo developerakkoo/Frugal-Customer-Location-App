@@ -5,7 +5,8 @@
       <ion-icon slot="icon-only" name="person"></ion-icon>
     </ion-button>
   </ion-toolbar>
-  <ion-searchbar placeholder="Select City/Current Location" inputmode="decimal" type="decimal" (ionChange)="onSearchChange($event)" [debounce]="250" showCancelButton="always"></ion-searchbar>
+  <input ngx-google-places-autocomplete [options]='options' #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"/>
+  <!-- <ion-searchbar placeholder="Select City/Current Location" inputmode="decimal" type="decimal" (ionChange)="onSearchChange($event)" [debounce]="250" showCancelButton="always"></ion-searchbar> -->
 </ion-header>
 
 <ion-content>

@@ -7,12 +7,13 @@ import { IonicModule } from '@ionic/angular';
 import { HomePageRoutingModule } from './home-routing.module';
 
 import { HomePage } from './home.page';
-
+import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    GooglePlaceModule,
     HomePageRoutingModule
   ],
   declarations: [HomePage]

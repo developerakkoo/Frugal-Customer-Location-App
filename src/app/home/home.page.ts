@@ -2,6 +2,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Geolocation } from '@capacitor/geolocation';
 import { ModalController, MenuController, ToastController } from '@ionic/angular';
+import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
+import { Address } from 'ngx-google-places-autocomplete/objects/address';
+import { Options } from 'ngx-google-places-autocomplete/objects/options/options';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 declare var google: any;
 @Component({
@@ -13,8 +18,12 @@ export class HomePage implements OnInit {
   userId:any;
   marker:any;
   Automarker:any;
+  location:any;
   @ViewChild('map') mapView!: ElementRef;
 
+  @ViewChild("placesRef") places! : GooglePlaceDirective;
+
+  options!: Options;
 
 
   map: any;
@@ -24,6 +33,7 @@ export class HomePage implements OnInit {
   constructor(private menuCtrl: MenuController,
               private router: Router,
               private route:ActivatedRoute,
+              private http: HttpClient,
               private toastController: ToastController) {
                 this.userId = this.route.snapshot.paramMap.get("id");
                 this.getUserPosition();
@@ -32,6 +42,25 @@ export class HomePage implements OnInit {
   ngOnInit() {
     this.menuCtrl.enable(false);
   }
+
+  public handleAddressChange(address: Address) {
+         // Do some stuff
+         console.log(address.formatted_address);
+         this.http.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address.formatted_address}&key=AIzaSyA3UHehSfpUv3J_7fF0NTgbRLuB17CkOxg`)
+          .subscribe({
+            next:(value:any) =>{
+              console.log(value['results'][0]['geometry']['location']);
+              this.location = value['results'][0]['geometry']['location'];
+              this.addMap(this.location['lat'], this.location['lng']);
+            },
+            error:(error) =>{
+              console.log(error);
+              
+            }
+          })
+         //App Marker on this Position
+         
+}
 
   async presentToast() {
     const toast = await this.toastController.create({
