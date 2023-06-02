@@ -160,7 +160,7 @@ export class FolderPage implements OnInit {
 
       this.loadingController.dismiss();
     });
-  }
+  } 
 
 
   getOnDragEvent(vMarker: any) {
