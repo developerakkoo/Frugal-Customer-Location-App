@@ -16,7 +16,7 @@ const routes: Routes = [
     loadChildren: () => import('./auto-form/auto-form.module').then( m => m.AutoFormPageModule)
   },
   {
-    path: 'eauto',
+    path: 'eauto/:lat/:lng/:userId',
     loadChildren: () => import('./eauto/eauto.module').then( m => m.EautoPageModule)
   },
   {
@@ -24,15 +24,15 @@ const routes: Routes = [
     loadChildren: () => import('./ambulance/ambulance.module').then( m => m.AmbulancePageModule)
   },
   {
-    path: 'crane',
+    path: 'crane/:lat/:lng/:userId',
     loadChildren: () => import('./crane/crane.module').then( m => m.CranePageModule)
   },
   {
-    path: 'bulldozer',
+    path: 'bulldozer/:lat/:lng/:userId',
     loadChildren: () => import('./bulldozer/bulldozer.module').then( m => m.BulldozerPageModule)
   },
   {
-    path: 'schoolvan',
+    path: 'schoolvan/:lat/:lng/:userId',
     loadChildren: () => import('./schoolvan/schoolvan.module').then( m => m.SchoolvanPageModule)
   },
   {
@@ -58,6 +58,34 @@ const routes: Routes = [
   {
     path: 'profile/:id',
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
+  },
+  {
+    path: 'tanker/:lat/:lng/:userId',
+    loadChildren: () => import('./tanker/tanker.module').then( m => m.TankerPageModule)
+  },
+  {
+    path: 'firebrigade/:lat/:lng/:userId',
+    loadChildren: () => import('./firebrigade/firebrigade.module').then( m => m.FirebrigadePageModule)
+  },
+  {
+    path: 'auto/:lat/:lng/:userId',
+    loadChildren: () => import('./auto/auto.module').then( m => m.AutoPageModule)
+  },
+  {
+    path: 'cargo/:lat/:lng/:userId',
+    loadChildren: () => import('./cargo/cargo.module').then( m => m.CargoPageModule)
+  },
+  {
+    path: 'truck/:lat/:lng/:userId',
+    loadChildren: () => import('./truck/truck.module').then( m => m.TruckPageModule)
+  },
+  {
+    path: 'tractor/:lat/:lng/:userId',
+    loadChildren: () => import('./tractor/tractor.module').then( m => m.TractorPageModule)
+  },
+  {
+    path: 'roadroller/:lat/:lng/:userId',
+    loadChildren: () => import('./roadroller/roadroller.module').then( m => m.RoadrollerPageModule)
   }
 ];
 

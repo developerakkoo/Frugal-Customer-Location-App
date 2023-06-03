@@ -139,11 +139,25 @@ export class HomePage implements OnInit {
   }
   
   openTanker(){
-    this.presentToast();
+    if(this.isLocationPicked == true){
+
+      this.router.navigate(['tanker', this.location['lat'],this.location['lng'] , this.userId]);
+    }
+    if(this.isLocationPicked == false){
+
+      this.router.navigate(['tanker', this.lat,this.lng, this.userId]);
+    }
   }
 
   openFire(){
-    this.presentToast();
+    if(this.isLocationPicked == true){
+
+      this.router.navigate(['firebrigade', this.location['lat'],this.location['lng'] , this.userId]);
+    }
+    if(this.isLocationPicked == false){
+
+      this.router.navigate(['firebrigade', this.lat,this.lng, this.userId]);
+    }
 
   }
 
@@ -159,48 +173,109 @@ export class HomePage implements OnInit {
   }
 
   openRiskshaw(){
-    this.router.navigate(['folder', 'Auto'])
+    if(this.isLocationPicked == true){
+
+      this.router.navigate(['auto', this.location['lat'],this.location['lng'] , this.userId]);
+    }
+    if(this.isLocationPicked == false){
+
+      this.router.navigate(['auto', this.lat,this.lng, this.userId]);
+    }
 
   }
 
   openERiskshaw(){
-    this.router.navigate(['folder', 'eauto'])
+    if(this.isLocationPicked == true){
+
+      this.router.navigate(['eauto', this.location['lat'],this.location['lng'] , this.userId]);
+    }
+    if(this.isLocationPicked == false){
+
+      this.router.navigate(['eauto', this.lat,this.lng, this.userId]);
+    }
 
   }
 
   openCargo(){
-    // this.router.navigate(['folder', 'anbulance'])
-    this.presentToast();
+    if(this.isLocationPicked == true){
+
+      this.router.navigate(['cargo', this.location['lat'],this.location['lng'] , this.userId]);
+    }
+    if(this.isLocationPicked == false){
+
+      this.router.navigate(['cargo', this.lat,this.lng, this.userId]);
+    }
 
   }
 
   openTruck(){
-    this.presentToast();
+    if(this.isLocationPicked == true){
+
+      this.router.navigate(['truck', this.location['lat'],this.location['lng'] , this.userId]);
+    }
+    if(this.isLocationPicked == false){
+
+      this.router.navigate(['truck', this.lat,this.lng, this.userId]);
+    }
 
   }
 
   openCrane(){
-    this.router.navigate(['folder', 'crane'])
+    if(this.isLocationPicked == true){
+
+      this.router.navigate(['crane', this.location['lat'],this.location['lng'] , this.userId]);
+    }
+    if(this.isLocationPicked == false){
+
+      this.router.navigate(['crane', this.lat,this.lng, this.userId]);
+    }
 
   }
 
   openBulldozer(){
-    this.router.navigate(['folder', 'bulldozer'])
+    if(this.isLocationPicked == true){
 
+      this.router.navigate(['bulldozer', this.location['lat'],this.location['lng'] , this.userId]);
+    }
+    if(this.isLocationPicked == false){
+
+      this.router.navigate(['bulldozer', this.lat,this.lng, this.userId]);
+    }
   }
 
   openSchoolvan(){
-    this.router.navigate(['folder', 'schoolvan'])
+    if(this.isLocationPicked == true){
+
+      this.router.navigate(['schoolvan', this.location['lat'],this.location['lng'] , this.userId]);
+    }
+    if(this.isLocationPicked == false){
+
+      this.router.navigate(['schoolvan', this.lat,this.lng, this.userId]);
+    }
 
   }
 
   openTractor(){
-    this.presentToast();
+    if(this.isLocationPicked == true){
+
+      this.router.navigate(['tractor', this.location['lat'],this.location['lng'] , this.userId]);
+    }
+    if(this.isLocationPicked == false){
+
+      this.router.navigate(['tractor', this.lat,this.lng, this.userId]);
+    }
 
   }
 
   openRoadRoller(){
-    this.presentToast();
+    if(this.isLocationPicked == true){
+
+      this.router.navigate(['roadroller', this.location['lat'],this.location['lng'] , this.userId]);
+    }
+    if(this.isLocationPicked == false){
+
+      this.router.navigate(['roadroller', this.lat,this.lng, this.userId]);
+    }
 
   }
 }

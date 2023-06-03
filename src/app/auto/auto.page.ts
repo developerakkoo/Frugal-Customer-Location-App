@@ -1,19 +1,23 @@
-import { AutoFormPage } from './../auto-form/auto-form.page';
-import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Geolocation } from '@capacitor/geolocation';
-import { LoadingController, ModalController } from '@ionic/angular';
-import { Subscription } from 'rxjs';
+import { ModalController, MenuController, ToastController, LoadingController } from '@ionic/angular';
+import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
+import { Address } from 'ngx-google-places-autocomplete/objects/address';
+import { Options } from 'ngx-google-places-autocomplete/objects/options/options';
+import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Subscription } from 'rxjs';
+import { AutoFormPage } from '../auto-form/auto-form.page';
+
 declare var google: any;
 
 @Component({
-  selector: 'app-schoolvan',
-  templateUrl: './schoolvan.page.html',
-  styleUrls: ['./schoolvan.page.scss'],
+  selector: 'app-auto',
+  templateUrl: './auto.page.html',
+  styleUrls: ['./auto.page.scss'],
 })
-export class SchoolvanPage implements OnInit {
+export class AutoPage implements OnInit {
 
   userId:any;
 
@@ -73,7 +77,7 @@ export class SchoolvanPage implements OnInit {
     await loading.present();
   }
   getAllAutos() {
-    this.http.get(environment.URL+`/vehicles/nearMe/${this.lat}/${this.lng}/SCHOOLVAN`)
+    this.http.get(environment.URL+`/vehicles/nearMe/${this.lat}/${this.lng}/CRANE`)
     .subscribe({
       next:(autos:any) =>{
         console.log(autos['result']);
@@ -341,4 +345,5 @@ console.log(evt);
     this.getAllAutos();
 
   }
+
 }
