@@ -77,7 +77,7 @@ export class TractorPage implements OnInit {
     await loading.present();
   }
   getAllAutos() {
-    this.http.get(environment.URL+`/vehicles/nearMe/${this.lat}/${this.lng}/CRANE`)
+    this.http.get(environment.URL+`/vehicles/nearMe/${this.lat}/${this.lng}/TRACTOR`)
     .subscribe({
       next:(autos:any) =>{
         console.log(autos['result']);

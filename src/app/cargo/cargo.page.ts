@@ -73,7 +73,7 @@ export class CargoPage implements OnInit {
     await loading.present();
   }
   getAllAutos() {
-    this.http.get(environment.URL+`/vehicles/nearMe/${this.lat}/${this.lng}/CRANE`)
+    this.http.get(environment.URL+`/vehicles/nearMe/${this.lat}/${this.lng}/CARGO`)
     .subscribe({
       next:(autos:any) =>{
         console.log(autos['result']);
