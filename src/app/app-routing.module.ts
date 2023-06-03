@@ -20,7 +20,7 @@ const routes: Routes = [
     loadChildren: () => import('./eauto/eauto.module').then( m => m.EautoPageModule)
   },
   {
-    path: 'ambulance',
+    path: 'ambulance/:lat/:lng/:userId',
     loadChildren: () => import('./ambulance/ambulance.module').then( m => m.AmbulancePageModule)
   },
   {

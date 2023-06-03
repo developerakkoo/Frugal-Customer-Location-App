@@ -19,6 +19,8 @@ export class HomePage implements OnInit {
   marker:any;
   Automarker:any;
   location:any;
+  isLocationPicked:boolean = false;
+
   @ViewChild('map') mapView!: ElementRef;
 
   @ViewChild("placesRef") places! : GooglePlaceDirective;
@@ -37,24 +39,36 @@ export class HomePage implements OnInit {
               private toastController: ToastController) {
                 this.userId = this.route.snapshot.paramMap.get("id");
                 this.getUserPosition();
+
                }
 
   ngOnInit() {
     this.menuCtrl.enable(false);
   }
 
+  clearSearch(){
+    this.places.reset();
+    this.getUserPosition();
+
+  }
+
   public handleAddressChange(address: Address) {
          // Do some stuff
+         console.log(address.formatted_address.toString().length);
+         
          console.log(address.formatted_address);
          this.http.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address.formatted_address}&key=AIzaSyA3UHehSfpUv3J_7fF0NTgbRLuB17CkOxg`)
           .subscribe({
             next:(value:any) =>{
               console.log(value['results'][0]['geometry']['location']);
               this.location = value['results'][0]['geometry']['location'];
+              this.isLocationPicked = true;
               this.addMap(this.location['lat'], this.location['lng']);
             },
             error:(error) =>{
               console.log(error);
+              this.isLocationPicked = false;
+              this.getUserPosition();
               
             }
           })
@@ -85,6 +99,7 @@ export class HomePage implements OnInit {
 
     this.lat = position.coords.latitude;
     this.lng = position.coords.longitude;
+    this.isLocationPicked = false;
 
     this.addMap(position.coords.latitude, position.coords.longitude);
   }
@@ -122,10 +137,7 @@ export class HomePage implements OnInit {
     // this.getAllAutos();
 
   }
-  onSearchChange(ev:any){
-    console.log(ev);
-    
-  }
+  
   openTanker(){
     this.presentToast();
   }
@@ -136,7 +148,14 @@ export class HomePage implements OnInit {
   }
 
   openAmbulance(){
-    this.router.navigate(['folder', 'ambulance']);
+    if(this.isLocationPicked == true){
+
+      this.router.navigate(['ambulance', this.location['lat'],this.location['lng'] , this.userId]);
+    }
+    if(this.isLocationPicked == false){
+
+      this.router.navigate(['ambulance', this.lat,this.lng, this.userId]);
+    }
   }
 
   openRiskshaw(){
