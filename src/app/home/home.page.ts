@@ -127,7 +127,7 @@ export class HomePage implements OnInit {
       position: this.map.getCenter(),
       draggable: true,
       // icon: '/assets/rikshaw.png',
-      label: { color: '#121212', fontWeight: 'bold', fontSize: '10px', text: 'YOU ARE HERE!' }
+      // label: { color: '#121212', fontWeight: 'bold', fontSize: '10px', text: 'YOU ARE HERE!' }
       //icon: ''
     });
 
