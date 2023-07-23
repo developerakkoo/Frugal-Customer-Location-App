@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: FolderPage
+  },
+  {
+    path: '',
+    loadChildren: () => import('./langing-page/langing-page.module').then( m => m.LangingPagePageModule)
   }
 ];
 

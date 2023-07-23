@@ -1,3 +1,4 @@
+import { MenuController } from '@ionic/angular';
 import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
@@ -16,5 +17,8 @@ export class AppComponent {
     // { title: 'Trash', url: '/folder/Trash', icon: 'trash' },
     // { title: 'Spam', url: '/folder/Spam', icon: 'warning' },
   ];
-  constructor() {}
+  constructor(private menuCtrl: MenuController) {
+    this.menuCtrl.enable(false,'main-content');
+    this.menuCtrl.swipeGesture(false);
+  }
 }

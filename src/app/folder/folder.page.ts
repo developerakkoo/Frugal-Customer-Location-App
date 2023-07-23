@@ -131,7 +131,7 @@ export class FolderPage implements OnInit {
     this.origin = new google.maps.LatLng(lat, lon);
     let mapOptions = {
       center: latlng,
-      mapId: "9f9c02724597ae7e",
+      mapId: "ID9f9c02724597ae7e",
       zoom: 11,
 
     }
@@ -157,7 +157,6 @@ export class FolderPage implements OnInit {
     this.addMarker();
     google.maps.event.addListener(this.map, "tilesloaded", () => {
       console.log("Map is fully loaded");
-
       this.loadingController.dismiss();
     });
   } 
@@ -254,9 +253,9 @@ export class FolderPage implements OnInit {
                 },
               ],
               geodesic: true,
-              // strokeColor: "#FF0000",
-              // strokeOpacity: 1.0,
-              // strokeWeight: 2,
+              strokeColor: "#FF0000",
+              strokeOpacity: 1.0,
+              strokeWeight: 2,
             });
 
 

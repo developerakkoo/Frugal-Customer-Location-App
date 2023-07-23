@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'auth',
+    redirectTo: 'langing-page',
     pathMatch: 'full'
   },
   {
@@ -86,6 +86,10 @@ const routes: Routes = [
   {
     path: 'roadroller/:lat/:lng/:userId',
     loadChildren: () => import('./roadroller/roadroller.module').then( m => m.RoadrollerPageModule)
+  },
+  {
+    path: 'langing-page',
+    loadChildren: () => import('./langing-page/langing-page.module').then( m => m.LangingPagePageModule)
   }
 ];
 
